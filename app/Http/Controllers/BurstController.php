@@ -25,7 +25,10 @@ class BurstController extends Controller
 
     public function index()
     {
-        $reports = Burst::orderBy('created_at', 'desc')->paginate(6);
+        // Get current user
+        $user = User::findOrFail(auth()->user()->id);
+
+        $reports = $user->bursts()->orderBy('created_at', 'desc')->get();
         return view('burst.index')->with('reports', $reports);
     }
 
@@ -76,8 +79,8 @@ class BurstController extends Controller
 
         
         $burst->location = $location;
-        
-        $burst->save();
+        $user->bursts()->save($burst);
+        // $burst->save();
         return redirect('/bursts')->with('success', 'Successfully uploaded complaint');
 
     }

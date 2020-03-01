@@ -12,7 +12,7 @@ class AdminController extends Controller
     }
 
     public function index() {
-        $reports = Burst::orderBy('created_at', 'desc');
+        $reports = Burst::with('user')->get();
         return view('admin.index')->with('reports', $reports);
     }
 }

@@ -111,7 +111,7 @@
               @foreach($reports as $report)
               <td>{{$report->id}}</td>
               
-              <td>{{$report->user}}</td>
+              <td>{{$report->user->name}}</td>
               <td>{{$report->location}}</td>
               <td>{{$report->filename}}</td>
               @endforeach
