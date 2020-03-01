@@ -93,7 +93,10 @@
         </div>
       </div>
 
-      <canvas class="my-4 w-100 chartjs-render-monitor" id="myChart" width="630" height="266" style="display: block; width: 630px; height: 266px;"></canvas>
+      <div class="my-4 w-100" id="myChart" width="630" height="266" style="display: block; width: 630px; height: 266px;">
+      {!! $burstChart->container() !!}
+      </div>
+      <!-- <canvas class="my-4 w-100 chartjs-render-monitor" ></canvas> -->
 
       <h2>Reports: March</h2>
       <div class="table-responsive">
@@ -107,16 +110,17 @@
             </tr>
           </thead>
           <tbody>
+            @foreach($reports as $report) 
             <tr>
-              @foreach($reports as $report)
+              
               <td>{{$report->id}}</td>
               
               <td>{{$report->user->name}}</td>
               <td>{{$report->location}}</td>
               <td>{{$report->filename}}</td>
-              @endforeach
+              
             </tr>
-            
+            @endforeach
             
           </tbody>
         </table>
@@ -124,5 +128,13 @@
     </main>
   </div>
 </div>
+
+{{$users}}
+
+
+{{-- ChartScript --}}
+@if($burstChart)
+{!! $burstChart->script() !!}
+@endif
 
 @endsection
