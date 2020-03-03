@@ -8,6 +8,7 @@ use App\Charts\BurstChart;
 use Charts;
 use App\User;
 use DB;
+use FarhanWazir\GoogleMaps\GMaps;
 
 class AdminController extends Controller
 {
@@ -75,5 +76,18 @@ class AdminController extends Controller
         
         $reports = Burst::with('user')->get();
         return view('admin.index', ['reports' => $reports, 'burstChart' => $burstChart, 'users' => $data]);
+    }
+
+    public function map() {
+
+        $config['center'] = 'Sydney Airport,Sydney';
+        $config['zoom'] = '14';
+        $config['map_height'] = '400px';
+
+        $gmap = new GMaps();
+        $gmap->initialize($config);
+     
+        $map = $gmap->create_map();
+        return view('admin.map', ['map'=> $map]);
     }
 }
