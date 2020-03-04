@@ -90,4 +90,43 @@ class AdminController extends Controller
         $map = $gmap->create_map();
         return view('admin.map', ['map'=> $map]);
     }
+
+    public function customers() {
+
+        $customers = User::select(DB::raw("(COUNT(*)) as count"),DB::raw("MONTHNAME(created_at) as monthname"))
+        ->whereYear('created_at', date('Y'))
+        ->groupBy('monthname')
+        ->get();
+
+        $users = User::where('role', '!=', 'admin')->get();
+
+        
+        
+        // $user = User::selectRaw('year(created_at) year, monthname(created_at) month, count(*) data')
+        // ->groupBy('year', 'month')
+        // ->orderBy('year', 'desc')
+        // ->get();
+
+        $user = User::select(DB::raw("(COUNT(*)) as count"),DB::raw("MONTHNAME(created_at) as monthname"))
+        ->whereBetween('created_at', array('2020-01-01','2020-12-31'))
+        ->whereYear('created_at', date('Y'))
+        ->groupBy('monthname')
+        ->get();
+        // $user = "aa";
+
+        $months = [];
+        $values = [];
+
+        foreach($customers as $customer) {
+            $months[] = $customer->monthname;
+            $values[] = $customer->count;
+        }
+
+        $customerChart = new BurstChart;
+        $customerChart->labels($months);
+        $customerChart->dataset('Customers', 'line', $values);
+
+        return view('admin.customers', ['users' => $users,'cust'=>$user, 'customers'=>$customers, 'customerChart' => $customerChart]);
+
+    }
 }

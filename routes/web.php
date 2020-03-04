@@ -19,6 +19,8 @@ Auth::routes();
 
 Route::get('/admin', 'AdminController@index');
 Route::get('/map', 'AdminController@map');
+Route::get('/customers', 'AdminController@customers');
+
 
 Route::get('/home', 'HomeController@index')->name('home');
 

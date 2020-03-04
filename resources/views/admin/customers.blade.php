@@ -88,36 +88,40 @@
           </div>
           <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
-            {{date('M')}}
+            {{date('Y')}}
           </button>
         </div>
       </div>
 
       <div class="my-4 w-100" id="myChart" width="630" height="266" style="display: block; width: 630px; height: 266px;">
-      {!! $burstChart->container() !!}
+
+        {!! $customerChart->container() !!}
       </div>
       <!-- <canvas class="my-4 w-100 chartjs-render-monitor" ></canvas> -->
+      {{$customers}}
 
-      <h2>Reports: March</h2>
+      {{$cust}}
+
+      <h2>Users</h2>
       <div class="table-responsive">
         <table class="table table-striped table-sm">
           <thead>
             <tr>
               <th>#</th>
               <th>User</th>
-              <th>Location</th>
-              <th>Image</th>
+              <th>Created</th>
+              
             </tr>
           </thead>
           <tbody>
-            @foreach($reports as $report) 
+            @foreach($users as $user) 
             <tr>
               
-              <td>{{$report->id}}</td>
+              <td>{{$user->id}}</td>
               
-              <td>{{$report->user->name}}</td>
-              <td>{{$report->location}}</td>
-              <td>{{$report->filename}}</td>
+              <td>{{$user->name}}</td>
+              <td>{{$user->created_at}}</td>
+              
               
             </tr>
             @endforeach
@@ -129,11 +133,11 @@
   </div>
 </div>
 
-
-
 {{-- ChartScript --}}
-@if($burstChart)
-{!! $burstChart->script() !!}
+@if($customerChart)
+{!! $customerChart->script() !!}
 @endif
+
+
 
 @endsection
