@@ -93,7 +93,7 @@ class BurstController extends Controller
      */
     public function show($id)
     {
-        //
+        return abort(404);
     }
 
     /**
@@ -104,7 +104,11 @@ class BurstController extends Controller
      */
     public function edit($id)
     {
-        //
+        // Get current user
+        $user = User::findOrFail(auth()->user()->id);
+
+        $burst = $user->bursts()->find($id);
+        return view('burst.edit')->with('burst', $burst);
     }
 
     /**
@@ -116,7 +120,38 @@ class BurstController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'location'     =>  'required',
+            'filename'     =>  'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+        ]);
+
+        // Get current user
+        $user = User::findOrFail(auth()->user()->id);
+
+        // get location
+        $location = $request->input('location');
+
+        $burst = $user->bursts()->find($id);
+
+        // check if image has been uploaded
+        if ($request->has('filename')) {
+            // get image file
+            $image = $request->file('filename');
+
+            $name=$image->getClientOriginalName();
+
+            $image->move(public_path().'/images/', $name);  
+
+            $filePath = '/images/'.$name;
+            $burst->filename = $filePath;
+            
+        }
+
+        
+        $burst->location = $location;
+        $user->bursts()->save($burst);
+        // $burst->save();
+        return redirect('/bursts')->with('success', 'Successfully updated complaint');
     }
 
     /**

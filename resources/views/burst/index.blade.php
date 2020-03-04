@@ -35,7 +35,7 @@
               <p class="card-text">{{$report->location}}</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
-                  <button type="button" class="btn btn-sm btn-outline-success">Edit</button>
+                  <a href="/bursts/{{$report->id}}/edit/" role="button" class="btn btn-sm btn-outline-success">Edit</a>
                   <button type="button" class="btn btn-sm btn-outline-danger">Delete</button>
                 </div>
                 <small class="text-muted">9 mins</small>
