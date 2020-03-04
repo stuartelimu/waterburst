@@ -162,6 +162,9 @@ class BurstController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail(auth()->user()->id);
+        $burst = $user->bursts()->find($id);
+        $burst->delete();
+        return redirect()->back()->with('success', 'Successfully deleted complaint');
     }
 }

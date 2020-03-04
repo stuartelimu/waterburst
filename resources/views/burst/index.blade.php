@@ -34,10 +34,12 @@
             <div class="card-body">
               <p class="card-text">{{$report->location}}</p>
               <div class="d-flex justify-content-between align-items-center">
-                <div class="btn-group">
+                <form class="btn-group" action="{{ action('BurstController@destroy', $report->id) }}" method="POST">
+                  <input name="_token" type="hidden" value="{{ csrf_token() }}">
                   <a href="/bursts/{{$report->id}}/edit/" role="button" class="btn btn-sm btn-outline-success">Edit</a>
-                  <button type="button" class="btn btn-sm btn-outline-danger">Delete</button>
-                </div>
+                  <input type="hidden" name="_method" value="DELETE">
+                  <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                </form>
                 <small class="text-muted">{{$report->created_at->diffForHumans()}}</small>
               </div>
             </div>
