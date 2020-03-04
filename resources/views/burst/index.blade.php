@@ -38,7 +38,7 @@
                   <a href="/bursts/{{$report->id}}/edit/" role="button" class="btn btn-sm btn-outline-success">Edit</a>
                   <button type="button" class="btn btn-sm btn-outline-danger">Delete</button>
                 </div>
-                <small class="text-muted">9 mins</small>
+                <small class="text-muted">{{$report->created_at->diffForHumans()}}</small>
               </div>
             </div>
           </div>
