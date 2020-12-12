@@ -9,4 +9,6 @@
 
 {!! $map['js'] !!}
 
+
+
 @endsection

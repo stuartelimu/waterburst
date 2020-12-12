@@ -79,13 +79,31 @@ class AdminController extends Controller
     }
 
     public function map() {
+        $locations = [];
 
-        $config['center'] = 'Sydney Airport,Sydney';
-        $config['zoom'] = '14';
-        $config['map_height'] = '400px';
+
+        $config = array();
+        $config['center'] = '0.347596, 32.582520';
+        // $config['zoom'] = '14';
+        $config['map_height'] = '80vh';
 
         $gmap = new GMaps();
         $gmap->initialize($config);
+
+        $data = Burst::select(DB::raw("(COUNT(*)) as count"),'location')
+            ->groupBy('location')
+            ->orderByRaw('COUNT(*) DESC')
+            ->limit(10)
+            ->get();
+
+        foreach($data as $dt) {
+            // $locations[] = $dt->location;
+            $marker['position'] = '0.3475, 32.64917';
+            $gmap->add_marker($marker);
+        }
+
+        
+
      
         $map = $gmap->create_map();
         return view('admin.map', ['map'=> $map]);
