@@ -31,31 +31,20 @@
             <small id="locationHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
         </div>
 
-        
+        <div class="mb-3">
+            <label for="descriptionTextarea" name="description" class="form-label">Description (Optional)</label>
+            <textarea class="form-control" id="descriptionTextarea" rows="3"></textarea>
+        </div>
 
         <div class="input-group control-group increment">
             
             <input type="file" class="form-control" id="fileInput" name="filename">
-            <!-- <div class="input-group-append">
-                <button class="btn btn-success" type="button">Add</button>
-            </div> -->
+            
             
             
         </div>
 
-        <!-- <div class="clone hide">
-
-            <div class="input-group control-group mt-2">
-                
-                <input type="file" class="form-control" id="fileInput" name="filename[]">
-                <div class="input-group-append">
-                    <button class="btn btn-danger" type="button">Remove</button>
-                </div>
-                
-                
-            </div>
-
-        </div> -->
+        
         
         <button type="submit" class="mt-5 btn btn-primary">Submit</button>
     </form>

@@ -98,7 +98,7 @@ class AdminController extends Controller
 
         foreach($data as $dt) {
             // $locations[] = $dt->location;
-            $marker['position'] = '0.3475, 32.64917';
+            $marker['position'] = $dt->location;
             $gmap->add_marker($marker);
         }
 

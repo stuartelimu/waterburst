@@ -10,4 +10,10 @@ class Burst extends Model
     {
     	return $this->belongsTo(User::class);
     }
+
+
+    public function canUpdate(User $user) 
+    {
+        return $this->user_id == $user->id;
+    }
 }

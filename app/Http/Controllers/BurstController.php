@@ -28,9 +28,12 @@ class BurstController extends Controller
         // Get current user
         $user = User::findOrFail(auth()->user()->id);
 
-        $reports = $user->bursts()->orderBy('created_at', 'desc')->get();
+        $reports = Burst::all();
+
+        // $reports = $user->bursts()->orderBy('created_at', 'desc')->get();
         return view('burst.index')->with('reports', $reports);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -52,7 +55,7 @@ class BurstController extends Controller
     {
         $request->validate([
             'location'     =>  'required',
-            'filename'     =>  'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'filename'     =>  'image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
         // Get current user
@@ -60,6 +63,9 @@ class BurstController extends Controller
 
         // get location
         $location = $request->input('location');
+
+        // get description
+        $desc = $request->input('description');
 
         $burst = new Burst();
 
@@ -79,6 +85,7 @@ class BurstController extends Controller
 
         
         $burst->location = $location;
+        $burst->description = $desc;
         $user->bursts()->save($burst);
         // $burst->save();
         return redirect('/bursts')->with('success', 'Successfully uploaded complaint');
@@ -122,7 +129,7 @@ class BurstController extends Controller
     {
         $request->validate([
             'location'     =>  'required',
-            'filename'     =>  'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'filename'     =>  'image|mimes:jpeg,png,jpg,gif|max:2048'
         ]);
 
         // Get current user
@@ -130,6 +137,9 @@ class BurstController extends Controller
 
         // get location
         $location = $request->input('location');
+
+        // get description
+        $desc = $request->input('description');
 
         $burst = $user->bursts()->find($id);
 
@@ -149,6 +159,7 @@ class BurstController extends Controller
 
         
         $burst->location = $location;
+        $burst->description = $desc;
         $user->bursts()->save($burst);
         // $burst->save();
         return redirect('/bursts')->with('success', 'Successfully updated complaint');

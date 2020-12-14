@@ -23,7 +23,9 @@ class CreateBurstsTable extends Migration
             $table->string('location');
             $table->timestamps();
         });
+
     }
+
 
     /**
      * Reverse the migrations.
