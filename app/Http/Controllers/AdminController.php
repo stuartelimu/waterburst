@@ -147,4 +147,13 @@ class AdminController extends Controller
         return view('admin.customers', ['users' => $users,'cust'=>$user, 'customers'=>$customers, 'customerChart' => $customerChart]);
 
     }
+
+    public function statusupdate($id) {
+        // $user = User::findOrFail(auth()->user()->id);
+        $burst = Burst::findOrFail($id);
+        $burst->status = !$burst->status;
+        // $user->bursts()->save($burst);
+        $burst->save();
+        return redirect()->back()->with('success', 'Successfully updated complaint');
+    }
 }

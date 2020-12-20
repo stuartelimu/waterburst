@@ -98,9 +98,6 @@
         {!! $customerChart->container() !!}
       </div>
       <!-- <canvas class="my-4 w-100 chartjs-render-monitor" ></canvas> -->
-      {{$customers}}
-
-      {{$cust}}
 
       <h2>Users</h2>
       <div class="table-responsive">

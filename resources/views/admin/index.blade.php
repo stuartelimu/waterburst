@@ -56,7 +56,7 @@
         </h6>
         <ul class="nav flex-column mb-2">
           <li class="nav-item">
-            <a class="nav-link" href="/admin">
+            <a class="nav-link" href="/customer/print-pdf">
               <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
               Current month
             </a>
@@ -98,27 +98,44 @@
       </div>
       <!-- <canvas class="my-4 w-100 chartjs-render-monitor" ></canvas> -->
 
-      <h2>Reports: March</h2>
+      <h2>Bursts</h2>
       <div class="table-responsive">
         <table class="table table-striped table-sm">
           <thead>
             <tr>
-              <th>#</th>
               <th>User</th>
+              <th>Email</th>
               <th>Location</th>
               <th>Image</th>
+              <td>Status</td>
             </tr>
           </thead>
           <tbody>
             @foreach($reports as $report) 
             <tr>
               
-              <td>{{$report->id}}</td>
+              
               
               <td>{{$report->user->name}}</td>
+              <td>{{$report->user->email}}</td>
               <td>{{$report->location}}</td>
-              <td>{{$report->filename}}</td>
+              <td><a href="{{$report->filename}}" target="_blank" rel="noopener noreferrer">{{$report->filename}}</a></td>
+              <td>
               
+                
+              <form action="{{ action('AdminController@statusupdate', $report->id) }}" method="POST">
+                  <!-- <input type="hidden" name="_method" value="PUT"> -->
+                  @csrf
+
+                  @if(!$report->status)
+                  <span class="badge badge-danger">Unresolved</span>
+                  <button class="btn btn-secondary btn-sm" type="submit">Resolve</button>
+                  @else
+                  <span class="badge badge-primary">Resolved</span>
+                  @endif
+
+              </form>
+              </td>
             </tr>
             @endforeach
             
